@@ -1,11 +1,11 @@
 metadata {
-  path = "metabase"
+  path = "superset"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "metabase/terraform"
-  target  = "metabase/terraform"
+  wkdir   = "superset/terraform"
+  target  = "superset/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:XdEUyMDGY+TaTFvn6KN9yQbctXDDHQ79NAp3zcZym0M="
+  sha     = "h1:PDnO2POBwfjOja++cKdk6+auMb/jHhgqR+YbEXFwyk4="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "metabase/terraform"
-  target  = "metabase/terraform"
+  wkdir   = "superset/terraform"
+  target  = "superset/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:XdEUyMDGY+TaTFvn6KN9yQbctXDDHQ79NAp3zcZym0M="
+  sha     = "h1:PDnO2POBwfjOja++cKdk6+auMb/jHhgqR+YbEXFwyk4="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "metabase"
-  target  = "metabase/terraform"
+  wkdir   = "superset"
+  target  = "superset/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "metabase",
+    "superset",
   ]
 
-  sha     = "h1:XdEUyMDGY+TaTFvn6KN9yQbctXDDHQ79NAp3zcZym0M="
+  sha     = "h1:PDnO2POBwfjOja++cKdk6+auMb/jHhgqR+YbEXFwyk4="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "metabase"
-  target  = "metabase/.plural/NONCE"
+  wkdir   = "superset"
+  target  = "superset/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "13c8d193bdba0807d4f6e3c5b353ddfc77c8b9a94633be386ffb99a3d04e8fc8"
+  sha     = "02e722546792cdd483fc5d533c3f33259496489bab035b7bbdbb8b4c8487e7b9"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "metabase"
-  target  = "metabase/crds"
+  wkdir   = "superset"
+  target  = "superset/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "metabase",
+    "superset",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "metabase"
-  target  = "metabase/helm"
+  wkdir   = "superset"
+  target  = "superset/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "metabase",
+    "superset",
   ]
 
-  sha     = "h1:fb09kTihkazx7K2MeM90chnaSAnhSdfFEt4R8sCOJZI="
+  sha     = "h1:NmYrNmGoyQVBQbtf1gad892SKben/BCU91X1vewDzBg="
   retries = 1
   verbose = false
 }
