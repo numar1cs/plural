@@ -1,11 +1,11 @@
 metadata {
-  path = "ingress-nginx"
+  path = "metabase"
   name = "deploy"
 }
 
 step "terraform-init" {
-  wkdir   = "ingress-nginx/terraform"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "metabase/terraform"
+  target  = "metabase/terraform"
   command = "terraform"
 
   args = [
@@ -13,14 +13,14 @@ step "terraform-init" {
     "-upgrade",
   ]
 
-  sha     = "h1:X3XvQvMdELA1yX6o4SpsgbV4OLrBa4TftgEF5MiP3aw="
+  sha     = "h1:XdEUyMDGY+TaTFvn6KN9yQbctXDDHQ79NAp3zcZym0M="
   retries = 0
   verbose = false
 }
 
 step "terraform-apply" {
-  wkdir   = "ingress-nginx/terraform"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "metabase/terraform"
+  target  = "metabase/terraform"
   command = "terraform"
 
   args = [
@@ -28,30 +28,30 @@ step "terraform-apply" {
     "-auto-approve",
   ]
 
-  sha     = "h1:X3XvQvMdELA1yX6o4SpsgbV4OLrBa4TftgEF5MiP3aw="
+  sha     = "h1:XdEUyMDGY+TaTFvn6KN9yQbctXDDHQ79NAp3zcZym0M="
   retries = 1
   verbose = false
 }
 
 step "terraform-output" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/terraform"
+  wkdir   = "metabase"
+  target  = "metabase/terraform"
   command = "plural"
 
   args = [
     "output",
     "terraform",
-    "ingress-nginx",
+    "metabase",
   ]
 
-  sha     = "h1:X3XvQvMdELA1yX6o4SpsgbV4OLrBa4TftgEF5MiP3aw="
+  sha     = "h1:XdEUyMDGY+TaTFvn6KN9yQbctXDDHQ79NAp3zcZym0M="
   retries = 0
   verbose = false
 }
 
 step "kube-init" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/.plural/NONCE"
+  wkdir   = "metabase"
+  target  = "metabase/.plural/NONCE"
   command = "plural"
 
   args = [
@@ -59,20 +59,20 @@ step "kube-init" {
     "kube-init",
   ]
 
-  sha     = "47a5c8a5278c0d0b2ca6ff4464e9fbd2ea69ec24850520fa8dd280bc3e3c9dd7"
+  sha     = "db0e6ae7b07a19212232e466055b6c29b33c1913f37b7ee21f5a0fbfbceb9235"
   retries = 0
   verbose = false
 }
 
 step "crds" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/crds"
+  wkdir   = "metabase"
+  target  = "metabase/crds"
   command = "plural"
 
   args = [
     "wkspace",
     "crds",
-    "ingress-nginx",
+    "metabase",
   ]
 
   sha     = "h1:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
@@ -81,17 +81,17 @@ step "crds" {
 }
 
 step "bounce" {
-  wkdir   = "ingress-nginx"
-  target  = "ingress-nginx/helm"
+  wkdir   = "metabase"
+  target  = "metabase/helm"
   command = "plural"
 
   args = [
     "wkspace",
     "helm",
-    "ingress-nginx",
+    "metabase",
   ]
 
-  sha     = "h1:o3YqdrSMiEz2bZAJO2t8fpCpEvA2F01svkZ++zRAK9E="
+  sha     = "h1:fb09kTihkazx7K2MeM90chnaSAnhSdfFEt4R8sCOJZI="
   retries = 1
   verbose = false
 }
