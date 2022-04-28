@@ -8,7 +8,7 @@ step "terraform-init" {
   target  = "superset/terraform"
   command = "terraform"
   args    = ["init"]
-  sha     = ""
+  sha     = "h1:PDnO2POBwfjOja++cKdk6+auMb/jHhgqR+YbEXFwyk4="
   retries = 0
   verbose = false
 }
@@ -24,7 +24,7 @@ step "terraform" {
     "superset",
   ]
 
-  sha     = ""
+  sha     = "h1:PDnO2POBwfjOja++cKdk6+auMb/jHhgqR+YbEXFwyk4="
   retries = 0
   verbose = false
 }
@@ -40,7 +40,7 @@ step "kube-init" {
     "superset",
   ]
 
-  sha     = ""
+  sha     = "3112f79555ad56c36a5351e75d9e8e85de5b195a533f4238e17894b3cc9866f0"
   retries = 0
   verbose = false
 }
@@ -56,7 +56,7 @@ step "helm" {
     "superset",
   ]
 
-  sha     = ""
+  sha     = "h1:NmYrNmGoyQVBQbtf1gad892SKben/BCU91X1vewDzBg="
   retries = 0
   verbose = false
 }
